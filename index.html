@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Personal Finance</title>
+
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/dashboard.css">
+
+    <script type="module" src="./js/dashboard.js"></script>
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">₿</div>
+            <span>Finance</span>
+        </div>
+
+        <nav class="navigation">
+            <a href="./index.html" class="nav-item active">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="./transactions.html" class="nav-item">
+                <span>↕</span>
+                Transactions
+            </a>
+
+            <a href="./budgets.html" class="nav-item">
+                <span>◫</span>
+                Budgets
+            </a>
+
+            <a href="./analytics.html" class="nav-item">
+                <span>◩</span>
+                Analytics
+            </a>
+
+            <a href="./settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+        </nav>
+    </aside>
+
+
+    <!-- Main -->
+    <main class="main-content">
+
+        <header class="topbar">
+            <div>
+                <p class="eyebrow">PERSONAL FINANCE</p>
+                <h1>Dashboard</h1>
+            </div>
+
+            <button id="refreshButton" class="icon-button" title="Refresh">
+                ↻
+            </button>
+        </header>
+
+
+        <section class="welcome">
+            <div>
+                <p class="eyebrow">OVERVIEW</p>
+                <h2>Good evening 👋</h2>
+                <p>
+                    Here's your financial overview.
+                </p>
+            </div>
+        </section>
+
+
+        <!-- Summary -->
+        <section class="summary-grid">
+
+            <article class="summary-card balance-card">
+                <div class="card-label">
+                    <span>Total Balance</span>
+                </div>
+
+                <strong id="totalBalance">
+                    Rp 0
+                </strong>
+
+                <small id="balanceStatus">
+                    No data
+                </small>
+            </article>
+
+
+            <article class="summary-card">
+                <div class="card-label">
+                    <span>Income</span>
+                </div>
+
+                <strong id="totalIncome">
+                    Rp 0
+                </strong>
+
+                <small class="positive">
+                    This month
+                </small>
+            </article>
+
+
+            <article class="summary-card">
+                <div class="card-label">
+                    <span>Expense</span>
+                </div>
+
+                <strong id="totalExpense">
+                    Rp 0
+                </strong>
+
+                <small class="negative">
+                    This month
+                </small>
+            </article>
+
+
+            <article class="summary-card">
+                <div class="card-label">
+                    <span>Savings</span>
+                </div>
+
+                <strong id="totalSavings">
+                    Rp 0
+                </strong>
+
+                <small id="savingsRate">
+                    0%
+                </small>
+            </article>
+
+        </section>
+
+
+        <!-- Charts -->
+        <section class="dashboard-grid">
+
+            <article class="panel cash-flow-panel">
+
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">TREND</p>
+                        <h3>Cash Flow</h3>
+                    </div>
+
+                    <span id="currentMonth">
+                        -
+                    </span>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="cashFlowChart"></canvas>
+                </div>
+
+            </article>
+
+
+            <article class="panel">
+
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">BREAKDOWN</p>
+                        <h3>Expenses</h3>
+                    </div>
+                </div>
+
+                <div id="expenseBreakdown" class="expense-breakdown">
+                    <div class="empty-state">
+                        No expense data
+                    </div>
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- Recent transactions -->
+        <section class="panel transactions-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <p class="eyebrow">ACTIVITY</p>
+                    <h3>Recent Transactions</h3>
+                </div>
+
+                <a href="./transactions.html" class="text-link">
+                    View all →
+                </a>
+
+            </div>
+
+            <div id="recentTransactions">
+
+                <div class="empty-state">
+                    No transactions yet.
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
+
+</body>
+</html>
