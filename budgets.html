@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Budgets | Personal Finance</title>
+
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/budgets.css">
+
+    <script type="module" src="./js/budgets.js"></script>
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">₿</div>
+            <span>Finance</span>
+        </div>
+
+        <nav class="navigation">
+
+            <a href="./index.html" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="./transactions.html" class="nav-item">
+                <span>↕</span>
+                Transactions
+            </a>
+
+            <a href="./budgets.html" class="nav-item active">
+                <span>◫</span>
+                Budgets
+            </a>
+
+            <a href="./analytics.html" class="nav-item">
+                <span>◩</span>
+                Analytics
+            </a>
+
+            <a href="./settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <p class="eyebrow">PERSONAL FINANCE</p>
+                <h1>Budgets</h1>
+            </div>
+
+            <button
+                id="addBudgetButton"
+                class="primary-button"
+            >
+                + Add Budget
+            </button>
+
+        </header>
+
+
+        <section class="budget-overview">
+
+            <article class="summary-card">
+
+                <div class="card-label">
+                    Total Budget
+                </div>
+
+                <strong id="totalBudget">
+                    Rp 0
+                </strong>
+
+                <small>
+                    This month
+                </small>
+
+            </article>
+
+
+            <article class="summary-card">
+
+                <div class="card-label">
+                    Total Spent
+                </div>
+
+                <strong id="totalSpent">
+                    Rp 0
+                </strong>
+
+                <small id="spentPercentage">
+                    0% used
+                </small>
+
+            </article>
+
+
+            <article class="summary-card">
+
+                <div class="card-label">
+                    Remaining
+                </div>
+
+                <strong id="remainingBudget">
+                    Rp 0
+                </strong>
+
+                <small>
+                    Available
+                </small>
+
+            </article>
+
+        </section>
+
+
+        <section class="panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <p class="eyebrow">MONTHLY PLAN</p>
+                    <h3>Budget Progress</h3>
+                </div>
+
+                <input
+                    id="monthSelector"
+                    type="month"
+                >
+
+            </div>
+
+
+            <div
+                id="budgetList"
+                class="budget-list"
+            >
+
+                <div class="empty-state">
+                    No budgets yet.
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<!-- Budget Modal -->
+
+<div
+    id="budgetModal"
+    class="modal hidden"
+>
+
+    <div
+        id="budgetOverlay"
+        class="modal-overlay"
+    ></div>
+
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <p class="eyebrow">BUDGET</p>
+
+                <h2 id="budgetModalTitle">
+                    Add Budget
+                </h2>
+            </div>
+
+            <button
+                id="closeBudgetModal"
+                class="close-button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="budgetForm">
+
+            <input
+                type="hidden"
+                id="budgetId"
+            >
+
+
+            <div class="form-group">
+
+                <label for="budgetCategory">
+                    Category
+                </label>
+
+                <select
+                    id="budgetCategory"
+                    required
+                >
+
+                    <option value="">
+                        Select category
+                    </option>
+
+                    <option value="Food">
+                        Food
+                    </option>
+
+                    <option value="Transport">
+                        Transport
+                    </option>
+
+                    <option value="Shopping">
+                        Shopping
+                    </option>
+
+                    <option value="Bills">
+                        Bills
+                    </option>
+
+                    <option value="Entertainment">
+                        Entertainment
+                    </option>
+
+                    <option value="Education">
+                        Education
+                    </option>
+
+                    <option value="Health">
+                        Health
+                    </option>
+
+                    <option value="Subscription">
+                        Subscription
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="budgetAmount">
+                    Monthly Limit
+                </label>
+
+                <input
+                    id="budgetAmount"
+                    type="number"
+                    min="1"
+                    step="1"
+                    placeholder="1000000"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="budgetMonth">
+                    Month
+                </label>
+
+                <input
+                    id="budgetMonth"
+                    type="month"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-actions">
+
+                <button
+                    type="button"
+                    id="cancelBudget"
+                    class="secondary-button"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="primary-button"
+                >
+                    Save Budget
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+</body>
+</html>
