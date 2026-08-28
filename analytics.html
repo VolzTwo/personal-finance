@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analytics | Personal Finance</title>
+
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/analytics.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="./js/analytics.js"></script>
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">₿</div>
+            <span>Finance</span>
+        </div>
+
+        <nav class="navigation">
+
+            <a href="./index.html" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="./transactions.html" class="nav-item">
+                <span>↕</span>
+                Transactions
+            </a>
+
+            <a href="./budgets.html" class="nav-item">
+                <span>◫</span>
+                Budgets
+            </a>
+
+            <a href="./analytics.html" class="nav-item active">
+                <span>◩</span>
+                Analytics
+            </a>
+
+            <a href="./settings.html" class="nav-item">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <p class="eyebrow">PERSONAL FINANCE</p>
+                <h1>Analytics</h1>
+            </div>
+
+            <select
+                id="periodSelector"
+                class="period-selector"
+            >
+                <option value="6">Last 6 months</option>
+                <option value="3">Last 3 months</option>
+                <option value="12">Last 12 months</option>
+            </select>
+
+        </header>
+
+
+        <!-- Stats -->
+
+        <section class="analytics-stats">
+
+            <article class="summary-card">
+
+                <div class="card-label">
+                    Total Income
+                </div>
+
+                <strong id="analyticsIncome">
+                    Rp 0
+                </strong>
+
+            </article>
+
+
+            <article class="summary-card">
+
+                <div class="card-label">
+                    Total Expense
+                </div>
+
+                <strong id="analyticsExpense">
+                    Rp 0
+                </strong>
+
+            </article>
+
+
+            <article class="summary-card">
+
+                <div class="card-label">
+                    Savings
+                </div>
+
+                <strong id="analyticsSavings">
+                    Rp 0
+                </strong>
+
+            </article>
+
+
+            <article class="summary-card">
+
+                <div class="card-label">
+                    Savings Rate
+                </div>
+
+                <strong id="analyticsSavingsRate">
+                    0%
+                </strong>
+
+            </article>
+
+        </section>
+
+
+        <!-- Main Charts -->
+
+        <section class="analytics-grid">
+
+            <article class="panel chart-panel large">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="eyebrow">CASH FLOW</p>
+                        <h3>Income vs Expense</h3>
+                    </div>
+
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="cashFlowAnalytics"></canvas>
+                </div>
+
+            </article>
+
+
+            <article class="panel chart-panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="eyebrow">EXPENSES</p>
+                        <h3>By Category</h3>
+                    </div>
+
+                </div>
+
+                <div class="donut-container">
+                    <canvas id="expenseCategoryChart"></canvas>
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- Additional Stats -->
+
+        <section class="analytics-grid secondary-grid">
+
+            <article class="panel">
+
+                <div class="panel-header">
+                    <div>
+                        <p class="eyebrow">INSIGHTS</p>
+                        <h3>Expense Statistics</h3>
+                    </div>
+                </div>
+
+                <div class="stat-list">
+
+                    <div class="stat-row">
+                        <span>Average expense</span>
+                        <strong id="averageExpense">
+                            Rp 0
+                        </strong>
+                    </div>
+
+                    <div class="stat-row">
+                        <span>Highest expense</span>
+                        <strong id="highestExpense">
+                            Rp 0
+                        </strong>
+                    </div>
+
+                    <div class="stat-row">
+                        <span>Transactions</span>
+                        <strong id="transactionCount">
+                            0
+                        </strong>
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <article class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="eyebrow">TOP CATEGORY</p>
+                        <h3>Highest Spending</h3>
+                    </div>
+
+                </div>
+
+                <div
+                    id="topCategory"
+                    class="top-category"
+                >
+                    <span class="top-category-icon">
+                        —
+                    </span>
+
+                    <div>
+                        <strong>No data</strong>
+                        <small>No expense recorded</small>
+                    </div>
+                </div>
+
+            </article>
+
+        </section>
+
+    </main>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+</body>
+</html>
