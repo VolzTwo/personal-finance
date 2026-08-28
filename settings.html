@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Settings | Personal Finance</title>
+
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/settings.css">
+
+    <script type="module" src="./js/settings.js"></script>
+</head>
+
+<body>
+
+<div class="app">
+
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-icon">₿</div>
+            <span>Finance</span>
+        </div>
+
+        <nav class="navigation">
+
+            <a href="./index.html" class="nav-item">
+                <span>⌂</span>
+                Dashboard
+            </a>
+
+            <a href="./transactions.html" class="nav-item">
+                <span>↕</span>
+                Transactions
+            </a>
+
+            <a href="./budgets.html" class="nav-item">
+                <span>◫</span>
+                Budgets
+            </a>
+
+            <a href="./analytics.html" class="nav-item">
+                <span>◩</span>
+                Analytics
+            </a>
+
+            <a href="./settings.html" class="nav-item active">
+                <span>⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <main class="main-content">
+
+        <header class="topbar">
+
+            <div>
+                <p class="eyebrow">PERSONAL FINANCE</p>
+                <h1>Settings</h1>
+            </div>
+
+        </header>
+
+
+        <section class="settings-layout">
+
+            <!-- Appearance -->
+
+            <article class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="eyebrow">PREFERENCES</p>
+                        <h3>Appearance</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <strong>Theme</strong>
+
+                        <small>
+                            Choose how the application looks.
+                        </small>
+
+                    </div>
+
+
+                    <select id="themeSelect">
+
+                        <option value="system">
+                            System
+                        </option>
+
+                        <option value="light">
+                            Light
+                        </option>
+
+                        <option value="dark">
+                            Dark
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </article>
+
+
+            <!-- Currency -->
+
+            <article class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="eyebrow">REGIONAL</p>
+                        <h3>Currency</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="setting-row">
+
+                    <div class="setting-info">
+
+                        <strong>Currency</strong>
+
+                        <small>
+                            Currency used throughout the app.
+                        </small>
+
+                    </div>
+
+
+                    <select id="currencySelect">
+
+                        <option value="IDR">
+                            Indonesian Rupiah (IDR)
+                        </option>
+
+                        <option value="USD">
+                            US Dollar (USD)
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </article>
+
+
+            <!-- Data -->
+
+            <article class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="eyebrow">DATA</p>
+                        <h3>Data Management</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="data-actions">
+
+                    <button
+                        id="exportButton"
+                        class="secondary-button"
+                    >
+                        Export Data
+                    </button>
+
+
+                    <label
+                        for="importInput"
+                        class="secondary-button"
+                    >
+                        Import Data
+                    </label>
+
+                    <input
+                        id="importInput"
+                        type="file"
+                        accept=".json"
+                        hidden
+                    >
+
+                </div>
+
+                <p class="data-note">
+                    Export creates a JSON backup of your
+                    application settings and local data.
+                </p>
+
+            </article>
+
+
+            <!-- About -->
+
+            <article class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <p class="eyebrow">ABOUT</p>
+                        <h3>Personal Finance</h3>
+                    </div>
+
+                </div>
+
+
+                <div class="about-info">
+
+                    <div class="about-row">
+                        <span>Version</span>
+                        <strong>1.0.0</strong>
+                    </div>
+
+                    <div class="about-row">
+                        <span>Frontend</span>
+                        <strong>HTML / CSS / JavaScript</strong>
+                    </div>
+
+                    <div class="about-row">
+                        <span>Backend</span>
+                        <strong>Google Apps Script</strong>
+                    </div>
+
+                    <div class="about-row">
+                        <span>Database</span>
+                        <strong>Google Sheets</strong>
+                    </div>
+
+                </div>
+
+            </article>
+
+        </section>
+
+    </main>
+
+</div>
+
+
+<div id="toast" class="toast"></div>
+
+</body>
+</html>
