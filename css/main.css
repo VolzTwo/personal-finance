@@ -396,3 +396,38 @@ a {
         font-size: 26px;
     }
 }
+
+html[data-theme="dark"] {
+
+    --background: #0b0d10;
+    --surface: #111418;
+    --surface-soft: #181c21;
+
+    --text: #f3f4f6;
+    --text-secondary: #a1a1aa;
+    --text-muted: #71717a;
+
+    --border: #272b31;
+
+    --primary: #f3f4f6;
+
+    --success: #4ade80;
+    --danger: #f87171;
+
+    color-scheme: dark;
+}
+
+
+html[data-theme="dark"] .primary-button {
+    color: #111827;
+}
+
+
+html[data-theme="dark"] .nav-item.active {
+    background: #1c2026;
+}
+
+
+html[data-theme="dark"] .modal-overlay {
+    background: rgba(0, 0, 0, 0.65);
+}
