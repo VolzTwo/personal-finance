@@ -2,75 +2,123 @@ import CONFIG from "./config.js";
 
 async function request(action, options = {}) {
     const {
-            method = "GET",
-                    body = null
-                        } = options;
+        method = "GET",
+        body = null
+    } = options;
 
-                            if (!CONFIG.API_URL) {
-                                    throw new Error("API URL belum dikonfigurasi.");
-                                        }
+    if (!CONFIG.API_URL) {
+        throw new Error("API URL belum dikonfigurasi.");
+    }
 
-                                            const url = new URL(CONFIG.API_URL);
-                                                url.searchParams.set("action", action);
+    const url = new URL(CONFIG.API_URL);
+    url.searchParams.set("action", action);
 
-                                                    const requestOptions = {
-                                                            method,
-                                                                    headers: {
-                                                                                "Content-Type": "application/json"
-                                                                                        }
-                                                                                            };
+    const requestOptions = {
+        method,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
 
-                                                                                                if (body) {
-                                                                                                        requestOptions.body = JSON.stringify(body);
-                                                                                                            }
+    if (body) {
+        requestOptions.body = JSON.stringify(body);
+    }
 
-                                                                                                                const response = await fetch(url.toString(), requestOptions);
+    const response = await fetch(url.toString(), requestOptions);
 
-                                                                                                                    if (!response.ok) {
-                                                                                                                            throw new Error(
-                                                                                                                                        `API request gagal (${response.status})`
-                                                                                                                                                );
-                                                                                                                                                    }
+    if (!response.ok) {
+        throw new Error(
+            `API request gagal (${response.status})`
+        );
+    }
 
-                                                                                                                                                        const data = await response.json();
+    const data = await response.json();
 
-                                                                                                                                                            if (data.success === false) {
-                                                                                                                                                                    throw new Error(
-                                                                                                                                                                                data.message || "API mengembalikan error."
-                                                                                                                                                                                        );
-                                                                                                                                                                                            }
+    if (data.success === false) {
+        throw new Error(
+            data.message || "API mengembalikan error."
+        );
+    }
 
-                                                                                                                                                                                                return data;
-                                                                                                                                                                                                }
+    return data;
+}
 
-                                                                                                                                                                                                export const api = {
-                                                                                                                                                                                                    getDashboard() {
-                                                                                                                                                                                                            return request("dashboard");
-                                                                                                                                                                                                                },
+export const api = {
+    getDashboard() {
+        return request("dashboard");
+    },
 
-                                                                                                                                                                                                                    getTransactions() {
-                                                                                                                                                                                                                            return request("transactions");
-                                                                                                                                                                                                                                },
+    getTransactions() {
+        return request("transactions");
+    },
 
-                                                                                                                                                                                                                                    getBudgets() {
-                                                                                                                                                                                                                                            return request("budgets");
-                                                                                                                                                                                                                                                },
+    getBudgets() {
+        return request("budgets");
+    },
 
-                                                                                                                                                                                                                                                    getAnalytics() {
-                                                                                                                                                                                                                                                            return request("analytics");
-                                                                                                                                                                                                                                                                },
+    getAnalytics() {
+        return request("analytics");
+    },
 
-                                                                                                                                                                                                                                                                    createTransaction(transaction) {
-                                                                                                                                                                                                                                                                            return request("transactions", {
-                                                                                                                                                                                                                                                                                        method: "POST",
-                                                                                                                                                                                                                                                                                                    body: {
-                                                                                                                                                                                                                                                                                                                    action: "create",
-                                                                                                                                                                                                                                                                                                                                    ...transaction
-                                                                                                                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                                                                                                                        });
-                                                                                                                                                                                                                                                                                                                                                            },
+    createTransaction(transaction) {
+        return request("transactions", {
+            method: "POST",
+            body: {
+                action: "create",
+                ...transaction
+            }
+        });
+    },
 
-                                                                                                                                                                                                                                                                                                                                                                updateTransaction(transaction) {
+    updateTransaction(transaction) {
+        return request("transactions", {
+            method: "POST",
+            body: {
+                action: "update",
+                ...transaction
+            }
+        });
+    },
+
+    deleteTransaction(id) {
+        return request("transactions", {
+            method: "POST",
+            body: {
+                action: "delete",
+                id
+            }
+        });
+    },
+    createBudget(budget) {
+    return request("budgets", {
+        method: "POST",
+        body: {
+            action: "create",
+            ...budget
+        }
+    });
+},
+
+updateBudget(budget) {
+    return request("budgets", {
+        method: "POST",
+        body: {
+            action: "update",
+            ...budget
+        }
+    });
+},
+
+deleteBudget(id) {
+    return request("budgets", {
+        method: "POST",
+        body: {
+            action: "delete",
+            id
+        }
+    });
+},
+};                                                                                                                                                                                                                                                                                                     updateTransaction(transaction) {
                                                                                                                                                                                                                                                                                                                                                                         return request("transactions", {
                                                                                                                                                                                                                                                                                                                                                                                     method: "POST",
                                                                                                                                                                                                                                                                                                                                                                                                 body: {
