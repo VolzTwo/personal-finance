@@ -544,7 +544,12 @@ async function loadAnalytics() {
     try {
 
         const response =
-            await api.getAnalytics();
+    await api.getAnalytics();
+
+console.log(
+    "Analytics API response:",
+    response
+);
 
 
         /*
