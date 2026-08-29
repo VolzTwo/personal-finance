@@ -412,11 +412,15 @@ async function loadData() {
 
     } catch (error) {
 
-        console.error(error);
+    console.error(
+        "SAVE BUDGET ERROR:",
+        error
+    );
 
-        showToast(
-            "Failed to load budget data."
-        );
+    showToast(
+        error.message ||
+        "Failed to save budget."
+    );
     }
 }
 
