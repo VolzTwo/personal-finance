@@ -210,37 +210,27 @@ function renderBreakdown(expenses) {
 
 
 async function loadDashboard() {
-
     try {
-
         elements.refresh?.classList.add("loading");
 
-        const data =
-            await api.getDashboard();
+        const data = await api.getDashboard();
+
+        console.log("Dashboard API response:", data);
+
+        if (!data) {
+            throw new Error("Dashboard API mengembalikan data kosong.");
+        }
 
         renderDashboard(data);
 
     } catch (error) {
-
-        console.error(error);
+        console.error("Dashboard error:", error);
 
         showToast(
-            "Dashboard belum terhubung ke API."
+            error.message || "Dashboard belum terhubung ke API."
         );
 
     } finally {
-
-        elements.refresh?.classList.remove(
-            "loading"
-        );
+        elements.refresh?.classList.remove("loading");
     }
 }
-
-
-elements.refresh?.addEventListener(
-    "click",
-    loadDashboard
-);
-
-
-loadDashboard();
