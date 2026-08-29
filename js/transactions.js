@@ -420,11 +420,16 @@ async function loadTransactions() {
 
     } catch (error) {
 
-        console.error(error);
+    console.error(
+        "SAVE TRANSACTION ERROR:",
+        error
+    );
 
-        showToast(
-            "Failed to load transactions."
-        );
+    showToast(
+        error.message ||
+        "Failed to save transaction."
+    );
+    
 
         transactions = [];
 
