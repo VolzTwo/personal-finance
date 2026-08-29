@@ -403,7 +403,12 @@ async function loadTransactions() {
     try {
 
         const response =
-            await api.getTransactions();
+    await api.getAnalytics();
+
+console.log(
+    "Analytics API response:",
+    response
+);
 
         transactions =
             Array.isArray(response)
