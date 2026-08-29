@@ -41,6 +41,9 @@ function showToast(message) {
 
 
 function renderDashboard(data) {
+
+    console.log("Rendering dashboard data:", data);
+
     const summary = data.summary || {};
 
     const income = Number(summary.income) || 0;
