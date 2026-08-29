@@ -67,62 +67,64 @@ export const api = {
     },
 
     createTransaction(transaction) {
-        return request("transactions", {
-            method: "POST",
-            body: {
-                action: "create",
-                ...transaction
-            }
+    return request("transactions", {
+        method: "POST",
+        body: {
+            action: "createTransaction",
+            data: transaction
+        }
         });
     },
 
     updateTransaction(transaction) {
-        return request("transactions", {
-            method: "POST",
-            body: {
-                action: "update",
-                ...transaction
-            }
-        });
-    },
+    return request("transactions", {
+        method: "transactions",
+        body: {
+            action: "updateTransaction",
+            id: transaction.id,
+            data: transaction
+        }
+    });
+},
 
     deleteTransaction(id) {
-        return request("transactions", {
-            method: "POST",
-            body: {
-                action: "delete",
-                id
-            }
-        });
-    },
+    return request("transactions", {
+        method: "POST",
+        body: {
+            action: "deleteTransaction",
+            id
+        }
+    });
+},
 
     createBudget(budget) {
-        return request("budgets", {
-            method: "POST",
-            body: {
-                action: "create",
-                ...budget
-            }
-        });
-    },
+    return request("budgets", {
+        method: "POST",
+        body: {
+            action: "createBudget",
+            data: budget
+        }
+    });
+},
 
     updateBudget(budget) {
-        return request("budgets", {
-            method: "POST",
-            body: {
-                action: "update",
-                ...budget
-            }
-        });
-    },
+    return request("budgets", {
+        method: "POST",
+        body: {
+            action: "updateBudget",
+            id: budget.id,
+            data: budget
+        }
+    });
+},
 
     deleteBudget(id) {
-        return request("budgets", {
-            method: "POST",
-            body: {
-                action: "delete",
-                id
-            }
-        });
-    }
+    return request("budgets", {
+        method: "POST",
+        body: {
+            action: "deleteBudget",
+            id
+        }
+    });
+}
 };
