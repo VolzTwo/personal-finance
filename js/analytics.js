@@ -292,61 +292,48 @@ function renderCashFlow(monthly) {
         });
 }
 
-function renderCategories(data) {
-
-    const categoryTotals = {};
-
-
-    data
-        .filter(
-            transaction =>
-                transaction.type === "expense"
-        )
-        .forEach(transaction => {
-
-            const category =
-                transaction.category ||
-                "Other";
-
-            categoryTotals[category] =
-                (
-                    categoryTotals[category] ||
-                    0
-                ) +
-                Number(transaction.amount || 0);
-        });
-
+function renderCategories(categories) {
 
     const entries =
-        Object.entries(categoryTotals)
+        (categories || [])
+            .map(item => [
+                item.category || "Other",
+                Number(item.amount) || 0
+            ])
             .sort(
-                ([, a], [, b]) =>
-                    b - a
+                ([, a], [, b]) => b - a
             );
-
 
     const labels =
         entries.map(([category]) =>
             category
         );
 
-
     const values =
         entries.map(([, amount]) =>
             amount
         );
-
 
     const canvas =
         document.getElementById(
             "expenseCategoryChart"
         );
 
+    if (!canvas) return;
 
-    if (categoryChart) {
+    if (
+        categoryChart &&
+        typeof categoryChart.destroy === "function"
+    ) {
         categoryChart.destroy();
     }
 
+    if (!entries.length) {
+
+        renderTopCategory([]);
+
+        return;
+    }
 
     categoryChart =
         new Chart(canvas, {
@@ -360,7 +347,6 @@ function renderCategories(data) {
                 datasets: [
                     {
                         data: values,
-
                         borderWidth: 0
                     }
                 ]
@@ -386,7 +372,9 @@ function renderCategories(data) {
 
                             label(context) {
 
-                                return `${context.label}: ${
+                                return `${
+                                    context.label
+                                }: ${
                                     formatRupiah(
                                         context.parsed
                                     )
@@ -397,7 +385,6 @@ function renderCategories(data) {
                 }
             }
         });
-
 
     renderTopCategory(entries);
 }
@@ -449,68 +436,48 @@ function renderTopCategory(entries) {
 }
 
 
-function renderStatistics(data) {
-
-    const expenses =
-        data.filter(
-            t => t.type === "expense"
-        );
-
-
-    const expenseAmounts =
-        expenses.map(
-            t => Number(t.amount || 0)
-        );
-
-
-    const total =
-        expenseAmounts.reduce(
-            (sum, amount) =>
-                sum + amount,
-            0
-        );
-
-
-    const average =
-        expenseAmounts.length
-            ? total / expenseAmounts.length
-            : 0;
-
-
-    const highest =
-        Math.max(
-            0,
-            ...expenseAmounts
-        );
-
+function renderStatistics(summary, highestExpense) {
 
     elements.average.textContent =
-        formatRupiah(average);
+        formatRupiah(
+            Number(summary?.averageExpense) || 0
+        );
 
     elements.highest.textContent =
-        formatRupiah(highest);
+        formatRupiah(
+            Number(
+                highestExpense?.amount
+            ) || 0
+        );
 
     elements.count.textContent =
-        data.length;
+        Number(
+            summary?.transactionCount
+        ) || 0;
 }
 
+let analyticsData = null;
 
 function render() {
 
-    const months =
-        Number(elements.period.value);
+    if (!analyticsData) return;
 
-    const data =
-        getPeriodTransactions(months);
+    renderSummary(
+        analyticsData.summary
+    );
 
+    renderCashFlow(
+        analyticsData.monthly || []
+    );
 
-    renderSummary(data);
+    renderCategories(
+        analyticsData.expenseByCategory || []
+    );
 
-    renderCashFlow(data);
-
-    renderCategories(data);
-
-    renderStatistics(data);
+    renderStatistics(
+        analyticsData.summary,
+        analyticsData.highestExpense
+    );
 }
 
 
@@ -518,59 +485,34 @@ async function loadAnalytics() {
 
     try {
 
+        const months =
+            Number(elements.period.value) || 6;
+
         const response =
-    await api.getAnalytics();
+            await api.getAnalytics(months);
 
-console.log(
-    "Analytics API response:",
-    response
-);
+        console.log(
+            "Analytics API response:",
+            response
+        );
 
-
-        /*
-         * If GAS already provides analytics,
-         * use its transactions when available.
-         * Otherwise fall back to the
-         * transactions endpoint.
-         */
-
-        if (
-            response &&
-            Array.isArray(response.transactions)
-        ) {
-
-            transactions =
-                response.transactions;
-
-        } else {
-
-            const transactionResponse =
-                await api.getTransactions();
-
-            transactions =
-                Array.isArray(transactionResponse)
-                    ? transactionResponse
-                    : (
-                        transactionResponse
-                            .transactions ||
-                        transactionResponse.data ||
-                        []
-                    );
-        }
-
+        analyticsData = response;
 
         render();
 
     } catch (error) {
 
-        console.error(error);
+        console.error(
+            "Analytics load error:",
+            error
+        );
 
         showToast(
+            error.message ||
             "Failed to load analytics."
         );
     }
 }
-
 
 elements.period.addEventListener(
     "change",
