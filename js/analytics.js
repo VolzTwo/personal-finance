@@ -153,37 +153,19 @@ function buildMonthlyData(data) {
 }
 
 
-function renderSummary(data) {
+function renderSummary(summary) {
 
     const income =
-        data
-            .filter(t => t.type === "income")
-            .reduce(
-                (sum, t) =>
-                    sum + Number(t.amount || 0),
-                0
-            );
-
+        Number(summary?.income) || 0;
 
     const expense =
-        data
-            .filter(t => t.type === "expense")
-            .reduce(
-                (sum, t) =>
-                    sum + Number(t.amount || 0),
-                0
-            );
-
+        Number(summary?.expense) || 0;
 
     const savings =
-        income - expense;
-
+        Number(summary?.savings) || 0;
 
     const rate =
-        income > 0
-            ? (savings / income) * 100
-            : 0;
-
+        Number(summary?.savingsRate) || 0;
 
     elements.income.textContent =
         formatRupiah(income);
