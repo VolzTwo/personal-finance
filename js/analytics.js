@@ -516,7 +516,7 @@ async function loadAnalytics() {
 
 elements.period.addEventListener(
     "change",
-    render
+    loadAnalytics
 );
 
 
