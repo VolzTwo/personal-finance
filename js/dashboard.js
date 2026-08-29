@@ -215,6 +215,70 @@ function renderBreakdown(expenses) {
         `).join("");
 }
 
+function renderCashFlow(cashFlow) {
+
+    const canvas =
+        document.getElementById("cashFlowChart");
+
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    if (window.cashFlowChart) {
+        window.cashFlowChart.destroy();
+    }
+
+    const labels = cashFlow.map(item => item.date);
+
+    const income = cashFlow.map(item =>
+        Number(item.income || 0)
+    );
+
+    const expense = cashFlow.map(item =>
+        Number(item.expense || 0)
+    );
+
+    window.cashFlowChart = new Chart(ctx, {
+        type: "line",
+
+        data: {
+            labels,
+
+            datasets: [
+                {
+                    label: "Income",
+                    data: income,
+                    tension: 0.35,
+                    borderWidth: 2
+                },
+
+                {
+                    label: "Expense",
+                    data: expense,
+                    tension: 0.35,
+                    borderWidth: 2
+                }
+            ]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            plugins: {
+                legend: {
+                    display: true
+                }
+            },
+
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
 
 async function loadDashboard() {
     try {
