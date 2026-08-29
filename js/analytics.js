@@ -475,9 +475,9 @@ function render() {
     );
 
     renderStatistics(
-        analyticsData.summary,
-        analyticsData.highestExpense
-    );
+    analyticsData.summary,
+    analyticsData.summary.highestExpense
+);
 }
 
 
