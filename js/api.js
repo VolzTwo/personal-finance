@@ -78,7 +78,7 @@ export const api = {
 
     updateTransaction(transaction) {
     return request("transactions", {
-        method: "transactions",
+        method: "POST",
         body: {
             action: "updateTransaction",
             id: transaction.id,
