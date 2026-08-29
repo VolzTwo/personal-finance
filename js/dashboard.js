@@ -237,3 +237,10 @@ async function loadDashboard() {
         elements.refresh?.classList.remove("loading");
     }
 }
+
+elements.refresh?.addEventListener(
+    "click",
+    loadDashboard
+);
+
+loadDashboard();
