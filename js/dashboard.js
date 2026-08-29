@@ -42,6 +42,8 @@ function showToast(message) {
 
 function renderDashboard(data) {
 
+  console.log("Cash Flow:", data.cashFlow);
+
     console.log("Rendering dashboard data:", data);
 
     const balance = data.balance || {};
