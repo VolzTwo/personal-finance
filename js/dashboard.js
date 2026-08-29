@@ -44,24 +44,27 @@ function renderDashboard(data) {
 
     console.log("Rendering dashboard data:", data);
 
-    const summary = data.summary || {};
+    const balance = data.balance || {};
+    const monthly = data.monthly || {};
 
-    const income = Number(summary.income) || 0;
-    const expense = Number(summary.expense) || 0;
-    const balance =
-        Number(summary.balance ?? income - expense);
+    const income =
+        Number(monthly.income) || 0;
+
+    const expense =
+        Number(monthly.expense) || 0;
 
     const savings =
-        Number(summary.savings ?? income - expense);
+        Number(monthly.savings) || 0;
 
     const savingsRate =
-        income > 0
-            ? (savings / income) * 100
-            : 0;
+        Number(monthly.savingsRate) || 0;
+
+    const totalBalance =
+        Number(balance.total) || 0;
 
     setText(
         elements.balance,
-        formatRupiah(balance)
+        formatRupiah(totalBalance)
     );
 
     setText(
@@ -86,23 +89,24 @@ function renderDashboard(data) {
 
     setText(
         elements.balanceStatus,
-        "Current balance"
+        totalBalance >= 0
+            ? "Current balance"
+            : "Negative balance"
     );
 
     renderTransactions(
-        data.transactions || []
+        data.recentTransactions || []
     );
 
     renderBreakdown(
-        data.expenses || []
+        data.expenseBreakdown || []
     );
 
     setText(
         elements.month,
-        data.currentMonth || "-"
+        data.period?.month || "-"
     );
 }
-
 
 function renderTransactions(transactions) {
 
