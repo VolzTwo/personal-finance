@@ -181,40 +181,36 @@ function renderSummary(summary) {
 }
 
 
-function renderCashFlow(data) {
-
-    const monthly =
-        buildMonthlyData(data);
-
+function renderCashFlow(monthly) {
 
     const labels =
         monthly.map(item =>
             getMonthLabel(item.month)
         );
 
-
     const income =
         monthly.map(item =>
-            item.income
+            Number(item.income) || 0
         );
-
 
     const expense =
         monthly.map(item =>
-            item.expense
+            Number(item.expense) || 0
         );
-
 
     const canvas =
         document.getElementById(
             "cashFlowAnalytics"
         );
 
+    if (!canvas) return;
 
-    if (cashFlowChart) {
+    if (
+        cashFlowChart &&
+        typeof cashFlowChart.destroy === "function"
+    ) {
         cashFlowChart.destroy();
     }
-
 
     cashFlowChart =
         new Chart(canvas, {
@@ -228,18 +224,13 @@ function renderCashFlow(data) {
                     {
                         label: "Income",
                         data: income,
-
                         borderWidth: 2,
-
                         tension: 0.35
                     },
-
                     {
                         label: "Expense",
                         data: expense,
-
                         borderWidth: 2,
-
                         tension: 0.35
                     }
                 ]
@@ -268,7 +259,9 @@ function renderCashFlow(data) {
 
                             label(context) {
 
-                                return `${context.dataset.label}: ${
+                                return `${
+                                    context.dataset.label
+                                }: ${
                                     formatRupiah(
                                         context.parsed.y
                                     )
@@ -287,6 +280,7 @@ function renderCashFlow(data) {
                         ticks: {
 
                             callback(value) {
+
                                 return formatRupiah(
                                     value
                                 );
@@ -297,7 +291,6 @@ function renderCashFlow(data) {
             }
         });
 }
-
 
 function renderCategories(data) {
 
