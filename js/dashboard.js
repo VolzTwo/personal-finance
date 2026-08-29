@@ -230,21 +230,28 @@ function renderCashFlow(cashFlow) {
 
     const ctx = canvas.getContext("2d");
 
-    if (window.cashFlowChart) {
+    // Destroy chart lama hanya jika benar-benar Chart instance
+    if (
+        window.cashFlowChart &&
+        typeof window.cashFlowChart.destroy === "function"
+    ) {
         window.cashFlowChart.destroy();
     }
 
-    const labels = cashFlow.map(item => item.date);
+    const labels = cashFlow.map(item =>
+        item.month || "-"
+    );
 
     const income = cashFlow.map(item =>
-        Number(item.income || 0)
+        Number(item.income) || 0
     );
 
     const expense = cashFlow.map(item =>
-        Number(item.expense || 0)
+        Number(item.expense) || 0
     );
 
     window.cashFlowChart = new Chart(ctx, {
+
         type: "line",
 
         data: {
@@ -257,7 +264,6 @@ function renderCashFlow(cashFlow) {
                     tension: 0.35,
                     borderWidth: 2
                 },
-
                 {
                     label: "Expense",
                     data: expense,
@@ -271,6 +277,11 @@ function renderCashFlow(cashFlow) {
             responsive: true,
             maintainAspectRatio: false,
 
+            interaction: {
+                intersect: false,
+                mode: "index"
+            },
+
             plugins: {
                 legend: {
                     display: true
@@ -279,7 +290,16 @@ function renderCashFlow(cashFlow) {
 
             scales: {
                 y: {
-                    beginAtZero: true
+                    beginAtZero: true,
+
+                    ticks: {
+                        callback: function(value) {
+                            return "Rp " +
+                                Number(value).toLocaleString(
+                                    "id-ID"
+                                );
+                        }
+                    }
                 }
             }
         }
