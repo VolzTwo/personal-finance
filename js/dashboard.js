@@ -102,6 +102,10 @@ function renderDashboard(data) {
         data.expenseBreakdown || []
     );
 
+  renderCashFlow(
+    data.cashFlow || []
+);
+
     setText(
         elements.month,
         data.period?.month || "-"
