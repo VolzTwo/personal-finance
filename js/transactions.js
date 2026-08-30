@@ -403,10 +403,10 @@ async function loadTransactions() {
     try {
 
         const response =
-    await api.getAnalytics();
+    await api.getTransactions();
 
 console.log(
-    "Analytics API response:",
+    "Transaction API response:",
     response
 );
 
