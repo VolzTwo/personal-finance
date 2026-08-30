@@ -423,30 +423,7 @@ html[data-theme="dark"] {
     color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
 
-    html[data-theme="system"] {
-        --background: #0b0d10;
-        --surface: #111418;
-        --surface-soft: #181c21;
-
-        --text: #f3f4f6;
-        --text-secondary: #a1a1aa;
-        --text-muted: #71717a;
-
-        --border: #272b31;
-
-        --primary: #f3f4f6;
-        --primary-text: #111827;
-
-        --success: #4ade80;
-        --danger: #f87171;
-
-        --overlay: rgba(0, 0, 0, 0.65);
-
-        color-scheme: dark;
-    }
-}
 
 
 .primary-button {
