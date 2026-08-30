@@ -173,35 +173,3 @@
     }
 }
 
-.primary-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-
-    padding: 11px 16px;
-
-    border: 1px solid var(--text);
-    border-radius: 10px;
-
-    background: var(--text);
-    color: var(--background);
-
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 650;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.15s ease,
-        opacity 0.15s ease;
-}
-
-.primary-button:hover {
-    opacity: 0.88;
-}
-
-.primary-button:active {
-    transform: scale(0.98);
-}
