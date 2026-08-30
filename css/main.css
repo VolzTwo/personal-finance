@@ -225,6 +225,46 @@ a {
     transform: rotate(30deg);
 }
 
+.primary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    padding: 11px 16px;
+
+    border: 1px solid var(--primary);
+    border-radius: 10px;
+
+    background: var(--primary);
+    color: var(--primary-text);
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        opacity 0.15s ease,
+        background 0.15s ease;
+}
+
+.primary-button:hover {
+    opacity: 0.88;
+}
+
+.primary-button:active {
+    transform: scale(0.98);
+}
+
+.primary-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
 
 /* Welcome */
 
