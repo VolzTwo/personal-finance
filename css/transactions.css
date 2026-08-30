@@ -61,7 +61,8 @@
 
 .primary-button {
     background: var(--primary);
-    color: white;
+    color: var(--primary-text);
+    border: 1px solid var(--primary);
 }
 
 .secondary-button {
