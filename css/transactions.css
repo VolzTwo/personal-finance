@@ -70,6 +70,22 @@
     color: var(--text);
     border: 1px solid var(--border);
 }
+.secondary-button {
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.15s ease;
+}
+
+.secondary-button:hover {
+    background: var(--surface-soft);
+    border-color: var(--text-muted);
+}
+
+.secondary-button:active {
+    transform: scale(0.98);
+}
 
 .primary-button:hover,
 .secondary-button:hover {
