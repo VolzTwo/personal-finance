@@ -436,82 +436,76 @@ async function loadTransactions() {
 }
 
 
+let isSavingTransaction = false;
 
 async function saveTransaction(event) {
-
     event.preventDefault();
 
+    if (isSavingTransaction) return;
 
-    const transaction = {
-
-        id:
-            elements.id.value ||
-            undefined,
-
-        type:
-            elements.type.value,
-
-        amount:
-            Number(elements.amount.value),
-
-        category:
-            elements.category.value,
-
-        description:
-            elements.description.value.trim(),
-
-        date:
-            elements.date.value
-    };
-
+    const amount = Number(elements.amount.value);
 
     if (
-        !transaction.amount ||
-        transaction.amount <= 0
+        elements.amount.value.trim() === "" ||
+        !Number.isFinite(amount) ||
+        amount <= 0
     ) {
-        showToast(
-            "Amount must be greater than zero."
-        );
-
+        showToast("Amount must be a valid number greater than zero.");
         return;
     }
 
+    const transaction = {
+        id: elements.id.value || undefined,
+        type: elements.type.value,
+        amount,
+        category: elements.category.value,
+        description: elements.description.value.trim(),
+        date: elements.date.value
+    };
+
+    if (!transaction.category || !transaction.date) {
+        showToast("Category and date are required.");
+        return;
+    }
+
+    const submitButton =
+        elements.form.querySelector('[type="submit"]');
+
+    const originalText = submitButton?.textContent;
+
+    isSavingTransaction = true;
+
+    if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Saving...";
+    }
 
     try {
-
         if (editingId) {
-
-            await api.updateTransaction(
-                transaction
-            );
-
-            showToast(
-                "Transaction updated."
-            );
-
+            await api.updateTransaction(transaction);
+            showToast("Transaction updated.");
         } else {
-
-            await api.createTransaction(
-                transaction
-            );
-
-            showToast(
-                "Transaction added."
-            );
+            await api.createTransaction(transaction);
+            showToast("Transaction added.");
         }
 
-
         closeModal();
-
         await loadTransactions();
 
     } catch (error) {
-
-        console.error(error);
+        console.error("SAVE TRANSACTION ERROR:", error);
 
         showToast(
-            "Failed to save transaction."
+            error.message || "Failed to save transaction."
         );
+
+    } finally {
+        isSavingTransaction = false;
+
+        if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = originalText ?? "Save";
+        }
     }
 }
 
