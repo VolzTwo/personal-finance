@@ -398,49 +398,43 @@ function updateCategoryFilter() {
 }
 
 
+
 async function loadTransactions() {
-
     try {
+        const response = await api.getTransactions();
 
-        const response =
-    await api.getTransactions();
+        transactions = Array.isArray(response)
+            ? response
+            : (
+                Array.isArray(response?.transactions)
+                    ? response.transactions
+                    : Array.isArray(response?.data)
+                        ? response.data
+                        : null
+            );
 
-console.log(
-    "Transaction API response:",
-    response
-);
-
-        transactions =
-            Array.isArray(response)
-                ? response
-                : (
-                    response.transactions ||
-                    response.data ||
-                    []
-                );
+        if (!transactions) {
+            throw new Error(
+                "Format data transaksi dari API tidak valid."
+            );
+        }
 
         updateCategoryFilter();
-
         renderTransactions();
 
     } catch (error) {
+        console.error("LOAD TRANSACTIONS ERROR:", error);
 
-    console.error(
-        "SAVE TRANSACTION ERROR:",
-        error
-    );
+        showToast(
+            error.message ||
+            "Gagal memuat transaksi."
+        );
 
-    showToast(
-        error.message ||
-        "Failed to save transaction."
-    );
-    
-
-        transactions = [];
-
-        renderTransactions();
+        // Jangan kosongkan transactions di sini.
+        // Data sebelumnya tetap dipertahankan.
     }
 }
+
 
 
 async function saveTransaction(event) {
