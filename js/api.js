@@ -66,15 +66,18 @@ export const api = {
         return request("analytics");
     },
 
-    createTransaction(transaction) {
+    
+createTransaction(transaction, requestKey) {
     return request("transactions", {
         method: "POST",
         body: {
             action: "createTransaction",
-            data: transaction
+            data: transaction,
+            requestKey
         }
-        });
-    },
+    });
+},
+
 
     updateTransaction(transaction) {
     return request("transactions", {
