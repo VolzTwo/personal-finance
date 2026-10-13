@@ -39,12 +39,12 @@ async function request(action, options = {}) {
     const result = await response.json();
 
     if (result.success === false) {
-        throw new Error(
-            result.message ||
-            "API mengembalikan error."
-        );
-    }
-
+    throw new Error(
+        result.error?.message ||
+        result.message ||
+        "API mengembalikan error."
+    );
+}
     return result.data ?? result;
 }
 
