@@ -8,6 +8,7 @@ import {
 let transactions = [];
 let editingId = null;
 let pendingCreateKey = null;
+let isSavingTransaction = false;
 
 const elements = {
     tableBody:
