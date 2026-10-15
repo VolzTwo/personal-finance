@@ -486,8 +486,19 @@ async function saveTransaction(event) {
             await api.updateTransaction(transaction);
             showToast("Transaction updated.");
         } else {
-            await api.createTransaction(transaction);
-            showToast("Transaction added.");
+            
+if (!pendingCreateKey) {
+    pendingCreateKey = crypto.randomUUID();
+}
+
+await api.createTransaction(
+    transaction,
+    pendingCreateKey
+);
+
+pendingCreateKey = null;
+showToast("Transaction added.");
+
         }
 
         closeModal();
