@@ -1,133 +1,122 @@
+
 import { API_URL } from "./config.js";
 
 async function request(action, options = {}) {
-    const {
-        method = "GET",
-        body = null
-    } = options;
+  const { method = "GET", body = null } = options;
 
-    if (!API_URL) {
-        throw new Error("API URL belum dikonfigurasi.");
-    }
+  if (!API_URL) {
+    throw new Error("API URL belum dikonfigurasi.");
+  }
 
-    const url = new URL(API_URL);
-    url.searchParams.set("action", action);
+  const url = new URL(API_URL);
+  url.searchParams.set("action", action);
 
-    const requestOptions = {
-        method,
-        headers: {}
-    };
+  const requestOptions = {
+    method,
+    headers: {}
+  };
 
-    if (body !== null) {
-        requestOptions.headers["Content-Type"] =
-            "text/plain;charset=utf-8";
+  if (body !== null) {
+    requestOptions.headers["Content-Type"] = "text/plain;charset=utf-8";
+    requestOptions.body = JSON.stringify(body);
+  }
 
-        requestOptions.body = JSON.stringify(body);
-    }
+  const response = await fetch(url.toString(), requestOptions);
 
-    const response = await fetch(
-        url.toString(),
-        requestOptions
-    );
+  if (!response.ok) {
+    throw new Error(`API request gagal (${response.status}).`);
+  }
 
-    if (!response.ok) {
-        throw new Error(
-            `API request gagal (${response.status})`
-        );
-    }
+  const result = await response.json();
 
-    const result = await response.json();
-
-    if (result.success === false) {
+  if (result.success === false) {
     throw new Error(
-        result.error?.message ||
-        result.message ||
-        "API mengembalikan error."
+      result.error?.message ||
+      result.message ||
+      "API mengembalikan error."
     );
-}
-    return result.data ?? result;
+  }
+
+  return result.data ?? result;
 }
 
 export const api = {
+  getDashboard() {
+    return request("dashboard");
+  },
 
-    getDashboard() {
-        return request("dashboard");
-    },
+  getTransactions() {
+    return request("transactions");
+  },
 
-    getTransactions() {
-        return request("transactions");
-    },
+  getBudgets() {
+    return request("budgets");
+  },
 
-    getBudgets() {
-        return request("budgets");
-    },
+  getAnalytics() {
+    return request("analytics");
+  },
 
-    getAnalytics() {
-        return request("analytics");
-    },
-
-    
-createTransaction(transaction, requestKey) {
+  createTransaction(transaction, requestKey) {
     return request("transactions", {
-        method: "POST",
-        body: {
-            action: "createTransaction",
-            data: transaction,
-            requestKey
-        }
+      method: "POST",
+      body: {
+        action: "createTransaction",
+        data: transaction,
+        requestKey
+      }
     });
-},
+  },
 
-
-    updateTransaction(transaction) {
+  updateTransaction(transaction) {
     return request("transactions", {
-        method: "POST",
-        body: {
-            action: "updateTransaction",
-            id: transaction.id,
-            data: transaction
-        }
+      method: "POST",
+      body: {
+        action: "updateTransaction",
+        id: transaction.id,
+        data: transaction
+      }
     });
-},
+  },
 
-    deleteTransaction(id) {
+  deleteTransaction(id) {
     return request("transactions", {
-        method: "POST",
-        body: {
-            action: "deleteTransaction",
-            id
-        }
+      method: "POST",
+      body: {
+        action: "deleteTransaction",
+        id
+      }
     });
-},
+  },
 
-    createBudget(budget) {
+  createBudget(budget) {
     return request("budgets", {
-        method: "POST",
-        body: {
-            action: "createBudget",
-            data: budget
-        }
+      method: "POST",
+      body: {
+        action: "createBudget",
+        data: budget
+      }
     });
-},
+  },
 
-    updateBudget(budget) {
+  updateBudget(budget) {
     return request("budgets", {
-        method: "POST",
-        body: {
-            action: "updateBudget",
-            id: budget.id,
-            data: budget
-        }
+      method: "POST",
+      body: {
+        action: "updateBudget",
+        id: budget.id,
+        data: budget
+      }
     });
-},
+  },
 
-    deleteBudget(id) {
+  deleteBudget(id) {
     return request("budgets", {
-        method: "POST",
-        body: {
-            action: "deleteBudget",
-            id
-        }
+      method: "POST",
+      body: {
+        action: "deleteBudget",
+        id
+      }
     });
-}
+  }
 };
