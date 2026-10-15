@@ -7,6 +7,7 @@ import {
 
 let transactions = [];
 let editingId = null;
+let pendingCreateKey = null;
 
 const elements = {
     tableBody:
